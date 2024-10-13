@@ -27,7 +27,7 @@ def show_mac_on_display():
     mac_address = get_mac_address()
     display.set_pen(GREEN)
     display.set_thickness(2)
-    display.text(f"MAC Address:", 10, 30, scale=1)
+    display.text("MAC Address:", 10, 30, scale=1)
     display.text(f"{mac_address}", 10, 60, scale=1)
     
     display.update()  # Update the display with new content
