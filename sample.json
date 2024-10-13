@@ -1,0 +1,8 @@
+{
+    "department": "aod",
+    "server_rest_url_prefix": "http://10.5.61.114:9200/nce-rest/arduino-status/",
+    "36:bc:2e:97:66:c1" : ["ssid", "passwd"],
+    "mac2" : ["ssid", "passwd"],
+    "mac3" : ["ssid", "passwd"]
+
+}
