@@ -51,6 +51,11 @@ def connect_to_wifi():
     wifi_ssid = "USB-PSK"
     wifi_password = config.get(mac_address)
     wlan.connect(wifi_ssid, wifi_password)
+    network_info = wlan.ifconfig()
+    ip_address = network_info[0]
+    print(f"MAC: {mac_address}")
+    print(f"IP: {ip_address}")
+    return mac_address, ip_address
 
 
 def parse_response(url):
@@ -90,14 +95,16 @@ def show_message(prio):
     display.update()
 
 
-connect_to_wifi()
+mac, ip_address = connect_to_wifi()
 display.set_pen(GREEN)
 led.set_rgb(0, 100, 0)
 INIT_MESSAGE_TIMEOUT = 5
 display.set_pen(BLACK)
 display.text("WiFi connected!", 10, 20, scale=3)
-display.text("Display will go off in sec", 10, 50, scale=3)
-display.text("3 sec", 10, 80, scale=3)
+display.text(f"MAC: {mac}", 10, 60, scale=3)
+display.text(f"IP: {ip_address}", 10, 100, scale=3)
+display.text("Display will go off in sec", 10, 140, scale=3)
+display.text("3 sec", 10, 180, scale=3)
 display.update()
 time.sleep(3)
 clear()
