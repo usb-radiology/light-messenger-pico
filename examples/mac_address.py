@@ -1,5 +1,4 @@
 import os
-import machine
 import network
 from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2
 
