@@ -1,11 +1,13 @@
-import time
+import asyncio
+import gc
 import json
+import time
+
 import network
 import requests
-from picographics import PicoGraphics, DISPLAY_PICO_DISPLAY_2, PEN_P4
+from machine import Pin
+from picographics import DISPLAY_PICO_DISPLAY_2, PEN_P4, PicoGraphics
 from pimoroni import RGBLED
-import gc
-import asyncio
 
 from anim_display import AnimatedDisplay
 
@@ -31,6 +33,28 @@ display.set_backlight(0.4)
 display.set_font("bitmap8")
 led = RGBLED(26, 27, 28)
 led.set_rgb(0, 0, 0)
+
+swA = Pin(12, Pin.IN, Pin.PULL_UP)
+swB = Pin(13, Pin.IN, Pin.PULL_UP)
+swX = Pin(14, Pin.IN, Pin.PULL_UP)
+swY = Pin(15, Pin.IN, Pin.PULL_UP)
+
+
+def sw_handlerX(pin):
+    time.sleep(0.05)
+    global display
+    display = PicoGraphics(display=DISPLAY_PICO_DISPLAY_2, pen_type=PEN_P4, rotate=180)
+
+
+def sw_handlerY(pin):
+    time.sleep(0.05)
+    global display
+    display = PicoGraphics(display=DISPLAY_PICO_DISPLAY_2, pen_type=PEN_P4, rotate=0)
+
+
+swX.irq(trigger=Pin.IRQ_FALLING, handler=sw_handlerX)
+swY.irq(trigger=Pin.IRQ_FALLING, handler=sw_handlerY)
+
 
 WHITE = display.create_pen(255, 255, 255)
 BLACK = display.create_pen(0, 0, 0)

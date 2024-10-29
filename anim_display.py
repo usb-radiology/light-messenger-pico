@@ -1,5 +1,4 @@
 import math
-import time
 
 
 class AnimatedDisplay:
@@ -24,16 +23,20 @@ class AnimatedDisplay:
         self.angle = 0
         self.active = False
         self.prio = ""
+        self.text = ""
         self.color = None
 
     def set_prio(self, prio):
         self.prio = prio
         if prio == "HIGH":
             self.color = self.RED
+            self.text = "bitte dringend visieren"
         elif prio == "MEDIUM":
             self.color = self.ORANGE
+            self.text = "bitte bald visieren"
         elif prio == "LOW":
             self.color = self.GREEN
+            self.text = "bitte visieren"
 
     def clear_display(self):
         self.display.set_pen(self.BLACK)
@@ -63,7 +66,7 @@ class AnimatedDisplay:
         self.display.circle(self.width // 2, self.height // 2, int(d2))
         self.display.circle(self.width, self.height // 2, int(d3))
         self.display.set_pen(self.WHITE)
-        self.display.text(self.department.upper(), self.width//2-10, self.height//2-10, scale=3)
+        self.display.text(self.department.upper() + f": {self.text}", self.width//2-10, self.height//2-10, scale=2)
         # Update the display
         self.display.update()
 
